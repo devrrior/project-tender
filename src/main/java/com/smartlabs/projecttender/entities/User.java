@@ -1,7 +1,6 @@
 package com.smartlabs.projecttender.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,4 +9,14 @@ import lombok.Setter;
 @Getter
 @Setter
 public class User {
+
+    @Id
+    @GeneratedValue( strategy = GenerationType.IDENTITY);
+    private Long id;
+    @Column
+    private String email;
+    @Column
+    private String companyName;
+    @Column
+    private String password;
 }
