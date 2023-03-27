@@ -40,7 +40,7 @@ public class UserServiceImpl implements IUserService {
     }
     @Override
     public List<GetUserResponse>list(){
-        return (List<GetUserResponse>) repository
+        return repository
                 .findAll()
                 .stream()
                 .map(this::from)

@@ -2,17 +2,22 @@ package com.smartlabs.projecttender.services.interfaces;
 
 import com.smartlabs.projecttender.dtos.requests.CreateProjectRequest;
 import com.smartlabs.projecttender.dtos.requests.UpdateProjectRequest;
+import com.smartlabs.projecttender.dtos.responses.GetProjectResponse;
+import com.smartlabs.projecttender.dtos.responses.GetUserResponse;
 import com.smartlabs.projecttender.dtos.responses.ProjectResponse;
+import com.smartlabs.projecttender.dtos.responses.UpdateProjectResponse;
+
+import java.util.List;
 
 public interface IProjectService {
 
-    ProjectResponse create (CreateProjectRequest request);
+    GetProjectResponse create (CreateProjectRequest request);
 
-    ProjectResponse get (Long id);
+    GetProjectResponse get (Long id);
 
-    ProjectResponse list (Long projectId);
+    List<GetProjectResponse> list ();
 
-    ProjectResponse update (Long id, UpdateProjectRequest request);
+    UpdateProjectResponse update (Long id, UpdateProjectRequest request);
 
-    ProjectResponse delete (Long id);
+    String delete (Long id);
 }
