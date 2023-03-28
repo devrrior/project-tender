@@ -11,17 +11,23 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
+
 @Slf4j
 @Component
 public class Consumer {
 
     @Autowired
     private IProjectService projectService;
+
+
     private IUserService userService;
     @RabbitListener(queues = {"${project.queue.projectList.get}"})
-    public void getProjectList(@Payload List<>){
-        log.info("List projects requested {}", message);
-
+    public void getProjectList(@Payload List<GetProjectResponse> response){
+        log.info("List projects requested {}", response);
+        projectService.list();
         makeslow();
     }
 
