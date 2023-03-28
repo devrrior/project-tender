@@ -33,7 +33,7 @@ public class UserServiceImpl implements IUserService {
     public UpdateUserResponse  update( Long id, UpdateUserRequest request){
         User user = findAndEnsureExist(id);
         user.setEmail(request.getEmail());
-        user.setCompanyName(request.getCompanyName());
+        user.setName(request.getCompanyName());
         user.setPassword(request.getPassword());
         User saveUser = repository.save(user);
         return toUpdateUserResponse(saveUser);
@@ -58,7 +58,7 @@ public class UserServiceImpl implements IUserService {
     private User from(CreateUserRequest request) {
         User user = new User();
         user.setEmail(request.getEmail());
-        user.setCompanyName(request.getCompanyName());
+        user.setName(request.getCompanyName());
         user.setPassword(request.getPassword());
         return user;
     }

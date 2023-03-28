@@ -5,10 +5,13 @@ import lombok.Getter;
 
 @Getter
 public class UpdateProjectRequest {
-    @Email
-    private String email;
+    private String name;
 
-    private String companyName;
+    private String description;
 
-    private String password;
+    private Float budget;
+
+    private Enum category;
+
+    private String imageUrl;
 }

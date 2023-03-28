@@ -1,16 +1,21 @@
 package com.smartlabs.projecttender.dtos.requests;
 
+import jakarta.persistence.Column;
 import jakarta.validation.constraints.Email;
 import lombok.Getter;
 
 @Getter
 public class CreateProjectRequest {
 
-    @Email
-    private String email;
+    private String name;
 
-    private String companyName;
+    private String description;
 
-    private String password;
+    private Float budget;
+
+    private Enum category;
+
+    private String imageUrl;
+
 
 }
