@@ -24,7 +24,7 @@ public class SNSserviceImpl implements ISNSservice {
     @Override
     public void sendNotification(Project project, String topicArn) {
         String projectName= project.getName();
-        String message = "Se ha creado un nuevo proyecto" + projectName ;
+        String message = "Se ha generado un nuevo proyecto" + projectName ;
         System.out.println(projectName);
         System.out.println(message);
 
