@@ -50,6 +50,7 @@ public class ProjectServiceimpl implements IProjectService {
 
     public UpdateProjectResponse update(Long id, UpdateProjectRequest request){
         Project project = findAndEnsureExist(id);
+        project.setId(project.getId());
         project.setName(project.getName());
         project.setDescription(project.getDescription());
         project.setBudget(project.getBudget());
