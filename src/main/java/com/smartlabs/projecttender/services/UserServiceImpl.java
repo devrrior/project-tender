@@ -33,7 +33,7 @@ public class UserServiceImpl implements IUserService {
     public UpdateUserResponse  update( Long id, UpdateUserRequest request){
         User user = findAndEnsureExist(id);
         user.setEmail(request.getEmail());
-        user.setName(request.getCompanyName());
+        user.setName(request.getName());
         user.setPassword(request.getPassword());
         User saveUser = repository.save(user);
         return toUpdateUserResponse(saveUser);
@@ -58,7 +58,7 @@ public class UserServiceImpl implements IUserService {
     private User from(CreateUserRequest request) {
         User user = new User();
         user.setEmail(request.getEmail());
-        user.setName(request.getCompanyName());
+        user.setName(request.getName());
         user.setPassword(request.getPassword());
         return user;
     }
@@ -66,7 +66,7 @@ public class UserServiceImpl implements IUserService {
        GetUserResponse response = new GetUserResponse();
        response.setId(response.getId());
        response.setEmail(response.getEmail());
-       response.setCompanyName(response.getCompanyName());
+       response.setName(response.getName());
        response.setPassword(response.getPassword());
         return response;
     }
@@ -74,7 +74,7 @@ public class UserServiceImpl implements IUserService {
         UpdateUserResponse response = new UpdateUserResponse();
         response.setId(response.getId());
         response.setEmail(response.getEmail());
-        response.setCompanyName(response.getCompanyName());
+        response.setName(response.getName());
         response.setPassword(response.getPassword());
         return response;
     }
