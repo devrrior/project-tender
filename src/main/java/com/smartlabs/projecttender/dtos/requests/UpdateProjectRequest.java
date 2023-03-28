@@ -5,6 +5,7 @@ import lombok.Getter;
 
 @Getter
 public class UpdateProjectRequest {
+    private Long id;
     private String name;
 
     private String description;

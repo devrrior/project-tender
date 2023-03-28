@@ -1,45 +1,62 @@
 package com.smartlabs.projecttender.rabbit;
 
+import com.smartlabs.projecttender.dtos.requests.CreateProjectRequest;
+import com.smartlabs.projecttender.dtos.requests.CreateUserRequest;
+import com.smartlabs.projecttender.dtos.requests.UpdateProjectRequest;
+import com.smartlabs.projecttender.dtos.responses.GetProjectResponse;
+import com.smartlabs.projecttender.services.interfaces.IProjectService;
+import com.smartlabs.projecttender.services.interfaces.IUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Slf4j
 @Component
 public class Consumer {
-    @RabbitListener(queues = {"${project.queue.projectList.get}"})
-    public void getProjectList(@Payload String message){
-        log.info("List projects requested {}", message);
 
+    @Autowired
+    private IProjectService projectService;
+
+
+    private IUserService userService;
+    @RabbitListener(queues = {"${project.queue.projectList.get}"})
+    public void getProjectList(@Payload List<GetProjectResponse> response){
+        log.info("List projects requested {}", response);
+        projectService.list();
         makeslow();
     }
 
     @RabbitListener(queues = {"${project.queue.project.create}"})
-    public void createProject(@Payload String message){
-        log.info("Project created {}", message);
-
+    public void createProject(@Payload CreateProjectRequest request){
+        log.info("Project created {}", request);
+        projectService.create(request);
         makeslow();
     }
     @RabbitListener(queues = {"${project.queue.project.get}"})
-    public void getProject(@Payload String message){
-        log.info(" Get project {}", message);
-
+    public void getProject(@Payload GetProjectResponse response){
+        log.info(" Get project {}", response);
+        projectService.get(response.getId());
         makeslow();
     }
 
     @RabbitListener(queues = {"${project.queue.project.update}"})
-    public void updateProject(@Payload String message){
-        log.info("Project Updated {}", message);
-
+    public void updateProject(@Payload UpdateProjectRequest request){
+        log.info("Project Updated {}", request);
+        projectService.update(request.getId(), request);
         makeslow();
     }
     @RabbitListener(queues = {"${user.queue.user.create}"})
-    public void createUser(@Payload String message){
-        log.info("User created {}", message);
-
+    public void createUser(@Payload CreateUserRequest request){
+        log.info("User created {}", request);
+        userService.create(request);
         makeslow();
     }
+
 
 
 

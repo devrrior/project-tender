@@ -7,6 +7,7 @@ import lombok.Getter;
 @Getter
 public class CreateProjectRequest {
 
+    private Long id;
     private String name;
 
     private String description;
