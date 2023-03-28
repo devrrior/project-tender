@@ -9,10 +9,11 @@ import com.smartlabs.projecttender.entities.User;
 import com.smartlabs.projecttender.repositories.IProjectRepository;
 import com.smartlabs.projecttender.services.interfaces.IProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
+@Service
 public class ProjectServiceimpl implements IProjectService {
     @Autowired
     private IProjectRepository repository;

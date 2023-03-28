@@ -7,10 +7,11 @@ import com.smartlabs.projecttender.entities.User;
 import com.smartlabs.projecttender.repositories.IUserRepository;
 import com.smartlabs.projecttender.services.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
+@Service
 public class UserServiceImpl implements IUserService {
 
     @Autowired
