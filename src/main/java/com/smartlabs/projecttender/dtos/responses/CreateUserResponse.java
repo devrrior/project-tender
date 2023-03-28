@@ -10,7 +10,7 @@ public class CreateUserResponse {
 
     private String email;
 
-    private String companyName;
+    private String name;
 
     private String password;
 }

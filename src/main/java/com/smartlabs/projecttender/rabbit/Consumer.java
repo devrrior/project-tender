@@ -8,55 +8,40 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 public class Consumer {
-    @RabbitListener(queues = {"${project.queue.Listget}"})
-    public void Listget(@Payload String message){
+    @RabbitListener(queues = {"${project.queue.projectList.get}"})
+    public void getProjectList(@Payload String message){
         log.info("List projects requested {}", message);
 
         makeslow();
     }
-    @RabbitListener(queues = {"${project.queue.Listnew}"})
-    public void Listnew(@Payload String message){
-        log.info("List projects response {}", message);
 
-        makeslow();
-    }
-    @RabbitListener(queues = {"${project.queue.create}"})
-    public void CreateProject(@Payload String message){
+    @RabbitListener(queues = {"${project.queue.project.create}"})
+    public void createProject(@Payload String message){
         log.info("Project created {}", message);
 
         makeslow();
     }
-    @RabbitListener(queues = {"${project.queue.get}"})
-    public void GetProject(@Payload String message){
+    @RabbitListener(queues = {"${project.queue.project.get}"})
+    public void getProject(@Payload String message){
         log.info(" Get project {}", message);
 
         makeslow();
     }
-    @RabbitListener(queues = {"${project.queue.new}"})
-    public void NewProject(@Payload String message){
-        log.info("New Project {}", message);
 
-        makeslow();
-    }
-    @RabbitListener(queues = {"${project.queue.update}"})
-    public void UpdateProject(@Payload String message){
+    @RabbitListener(queues = {"${project.queue.project.update}"})
+    public void updateProject(@Payload String message){
         log.info("Project Updated {}", message);
 
         makeslow();
     }
-    @RabbitListener(queues = {"${user.queue.create}"})
-    public void CreateUser(@Payload String message){
+    @RabbitListener(queues = {"${user.queue.user.create}"})
+    public void createUser(@Payload String message){
         log.info("User created {}", message);
 
         makeslow();
     }
 
-    @RabbitListener(queues = {"${user.queue.new}"})
-    public void NewUser(@Payload String message){
-        log.info("Received message {}", message);
 
-        makeslow();
-    }
 
     private void makeslow(){
         try {

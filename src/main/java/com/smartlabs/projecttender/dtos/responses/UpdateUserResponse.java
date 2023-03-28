@@ -10,7 +10,7 @@ public class UpdateUserResponse {
 
     private String email;
 
-    private String companyName;
+    private String name;
 
     private String password;
 }
