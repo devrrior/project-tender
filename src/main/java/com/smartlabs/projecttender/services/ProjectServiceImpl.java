@@ -34,7 +34,7 @@ public class ProjectServiceImpl implements IProjectService {
         Project project = repository.save(from(request));
         CreateProjectResponse createProjectResponse = toCreateProjectResponse(project);
 
-        String routingKey = "project.create";
+        String routingKey = "project.new";
         publisher.send(createProjectResponse, routingKey);
 
         snsService.sendNotification(project);
