@@ -1,3 +1,3 @@
-FROM amazoncorretto:11.0.17
+FROM amazoncorretto:17-alpine3.14
 ADD target/project-tender.jar project-tender.jar
 ENTRYPOINT ["java", "-jar", "app.jar"]
