@@ -20,7 +20,7 @@ public class Project {
     @Column
     private String description;
 
-    @Column()
+    @Column
     private String responsibleConstructor;
 
     @Column
