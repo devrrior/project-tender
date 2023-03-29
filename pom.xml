@@ -104,6 +104,7 @@
                 </configuration>
             </plugin>
         </plugins>
+        <finalName>project-tender</finalName>
     </build>
 
 </project>
