@@ -1,6 +1,5 @@
 package com.smartlabs.projecttender.entities;
 
-import com.smartlabs.projecttender.enums.ProjectType;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,8 +11,8 @@ import lombok.Setter;
 public class Project {
 
     @Id
-    @GeneratedValue( strategy = GenerationType.IDENTITY)
-    private  Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column
     private String name;
@@ -28,13 +27,10 @@ public class Project {
     private Float budget;
 
     @Column
-    private ProjectType type;
+    private String type;
 
     @Column
     private String imageUrl;
-
-
-
 
 
 }

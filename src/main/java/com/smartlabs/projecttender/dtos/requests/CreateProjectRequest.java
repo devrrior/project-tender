@@ -1,6 +1,5 @@
 package com.smartlabs.projecttender.dtos.requests;
 
-import com.smartlabs.projecttender.enums.ProjectType;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -16,7 +15,7 @@ public class CreateProjectRequest {
 
     private Float budget;
 
-    private ProjectType type;
+    private String type;
 
     private String imageUrl;
 }
