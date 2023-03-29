@@ -1,9 +1,9 @@
 package com.smartlabs.projecttender.dtos.requests;
 
-import jakarta.persistence.Column;
-import jakarta.validation.constraints.Email;
 import lombok.Getter;
+import lombok.Setter;
 
+@Setter
 @Getter
 public class CreateUserRequest {
 

@@ -3,8 +3,8 @@ package com.smartlabs.projecttender.dtos.responses;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
 @Setter
+@Getter
 public class CreateUserResponse {
     private Long id;
 

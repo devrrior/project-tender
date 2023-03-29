@@ -1,88 +1,85 @@
 package com.smartlabs.projecttender.services;
 
 import com.smartlabs.projecttender.dtos.requests.CreateUserRequest;
-import com.smartlabs.projecttender.dtos.requests.UpdateUserRequest;
-import com.smartlabs.projecttender.dtos.responses.*;
+import com.smartlabs.projecttender.dtos.responses.CreateUserResponse;
+import com.smartlabs.projecttender.dtos.responses.GetUserResponse;
 import com.smartlabs.projecttender.entities.User;
+import com.smartlabs.projecttender.rabbit.Publisher;
 import com.smartlabs.projecttender.repositories.IUserRepository;
+import com.smartlabs.projecttender.services.interfaces.ISNSService;
 import com.smartlabs.projecttender.services.interfaces.IUserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.stream.Collectors;
 @Service
 public class UserServiceImpl implements IUserService {
 
-    @Autowired
-    private IUserRepository repository;
+    private final IUserRepository repository;
+
+    private final ISNSService snsService;
+
+    private final Publisher publisher;
+
+    private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+    public UserServiceImpl(IUserRepository repository, Publisher publisher, ISNSService snsService) {
+        this.repository = repository;
+        this.publisher = publisher;
+        this.snsService = snsService;
+    }
 
     @Override
-    public GetUserResponse create(CreateUserRequest request){
-        User user = from(request);
-        return from(repository.save(user));
+    public CreateUserResponse create(CreateUserRequest request) {
+        User user = repository.save(from(request));
+        snsService.subscribeEmail(user.getEmail());
+
+        CreateUserResponse createUserResponse = toCreateUserResponse(user);
+
+        String routingKey = "user.new";
+        publisher.send(createUserResponse, routingKey);
+
+        return createUserResponse;
     }
+
     @Override
-    public String delete(Long id){
+    public GetUserResponse get(Long id) {
         User user = findAndEnsureExist(id);
-        repository.deleteById(id);
+        GetUserResponse getUserResponse = from(user);
 
-        return "User deleted correctly";
-    }
-    @Override
-    public UpdateUserResponse  update( Long id, UpdateUserRequest request){
-        User user = findAndEnsureExist(id);
-        user.setEmail(request.getEmail());
-        user.setName(request.getName());
-        user.setPassword(request.getPassword());
-        User saveUser = repository.save(user);
-        return toUpdateUserResponse(saveUser);
+        String routingKey = "user.current";
+        publisher.send(getUserResponse, routingKey);
 
-    }
-    @Override
-    public List<GetUserResponse>list(){
-        return repository
-                .findAll()
-                .stream()
-                .map(this::from)
-                .collect(Collectors.toList());
-    }
-
-
-    @Override
-    public GetUserResponse get(Long id){
-        User user = findAndEnsureExist(id);
-        return from(user);
+        return getUserResponse;
     }
 
     private User from(CreateUserRequest request) {
         User user = new User();
         user.setEmail(request.getEmail());
         user.setName(request.getName());
-        user.setPassword(request.getPassword());
+        user.setPassword(encoder.encode(request.getPassword()));
         return user;
     }
-    private GetUserResponse from(User user){
-       GetUserResponse response = new GetUserResponse();
-       response.setId(response.getId());
-       response.setEmail(response.getEmail());
-       response.setName(response.getName());
-       response.setPassword(response.getPassword());
-        return response;
-    }
-    private UpdateUserResponse toUpdateUserResponse(User user){
-        UpdateUserResponse response = new UpdateUserResponse();
-        response.setId(response.getId());
-        response.setEmail(response.getEmail());
-        response.setName(response.getName());
-        response.setPassword(response.getPassword());
+
+    private CreateUserResponse toCreateUserResponse(User user) {
+        CreateUserResponse response = new CreateUserResponse();
+        response.setId(user.getId());
+        response.setEmail(user.getEmail());
+        response.setName(user.getName());
+        response.setPassword(user.getPassword());
         return response;
     }
 
+    private GetUserResponse from(User user) {
+        GetUserResponse response = new GetUserResponse();
+        response.setId(user.getId());
+        response.setEmail(user.getEmail());
+        response.setName(user.getName());
+        response.setPassword(user.getPassword());
+        return response;
+    }
 
-
-    private User findAndEnsureExist (Long id){
-        return repository.findById(id).orElseThrow(()-> new RuntimeException("User not found"));
+    private User findAndEnsureExist(Long id) {
+        return repository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
     }
 
 }

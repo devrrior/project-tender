@@ -1,5 +1,6 @@
 package com.smartlabs.projecttender.dtos.responses;
 
+import com.smartlabs.projecttender.enums.ProjectType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,7 +16,7 @@ public class CreateProjectResponse {
 
     private Float budget;
 
-    private Enum category;
+    private ProjectType type;
 
     private String imageUrl;
 }

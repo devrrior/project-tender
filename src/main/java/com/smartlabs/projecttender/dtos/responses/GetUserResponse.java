@@ -1,5 +1,6 @@
 package com.smartlabs.projecttender.dtos.responses;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 

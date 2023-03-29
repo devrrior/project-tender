@@ -5,8 +5,7 @@ import lombok.ToString;
 
 @Getter
 @ToString
-public class UpdateProjectRequest {
-    private Long id;
+public class GetProjectRequest {
 
-    private String responsibleConstructor;
+    private Long id;
 }
