@@ -37,7 +37,7 @@ public class ProjectServiceImpl implements IProjectService {
         String routingKey = "project.new";
         publisher.send(createProjectResponse, routingKey);
 
-        snsService.sendNotification(project);
+//        snsService.sendNotification(project);
 
         return createProjectResponse;
     }
