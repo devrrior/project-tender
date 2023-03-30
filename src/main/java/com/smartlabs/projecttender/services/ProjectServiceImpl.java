@@ -100,6 +100,7 @@ public class ProjectServiceImpl implements IProjectService {
 
     private GetProjectResponse toGetProjectResponse(Project project) {
         GetProjectResponse response = new GetProjectResponse();
+        response.setId(project.getId());
         response.setName(project.getName());
         response.setDescription(project.getDescription());
         response.setBudget(project.getBudget());
