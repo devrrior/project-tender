@@ -17,5 +17,5 @@ public class CreateProjectRequest {
 
     private String type;
 
-    private String imageUrl;
+    private String imageURL;
 }
