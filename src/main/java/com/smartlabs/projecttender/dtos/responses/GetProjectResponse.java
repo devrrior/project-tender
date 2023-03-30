@@ -17,4 +17,6 @@ public class GetProjectResponse {
     private String type;
 
     private String imageUrl;
+
+    private String responsibleConstructor;
 }

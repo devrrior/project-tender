@@ -106,6 +106,7 @@ public class ProjectServiceImpl implements IProjectService {
         response.setBudget(project.getBudget());
         response.setType(project.getType());
         response.setImageUrl(project.getImageUrl());
+        response.setResponsibleConstructor(project.getResponsibleConstructor());
 
         return response;
     }
